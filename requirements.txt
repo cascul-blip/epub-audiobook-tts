@@ -1,0 +1,9 @@
+# torch/torchaudio are pulled in by chatterbox-tts. For a specific CUDA build, install torch
+# first from the PyTorch index, e.g. --index-url https://download.pytorch.org/whl/cu128
+chatterbox-tts==0.1.7
+EbookLib==0.20
+beautifulsoup4==4.15.0
+lxml==6.1.2
+pydub==0.25.1
+soundfile==0.14.0
+numpy

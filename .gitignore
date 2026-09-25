@@ -1,0 +1,18 @@
+# Virtualenv (this folder doubles as the venv)
+bin/
+lib/
+lib64
+include/
+share/
+pyvenv.cfg
+__pycache__/
+
+# Generated audio and caches
+*.wav
+*.mp3
+*_audiobook*/
+.cache/
+
+# Personal voice references and books
+voices/
+*.epub
