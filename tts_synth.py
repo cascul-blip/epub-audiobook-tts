@@ -5,7 +5,6 @@ from pathlib import Path
 
 import numpy as np
 import soundfile as sf
-import torch
 from pydub import AudioSegment
 
 from text_chunker import Chunk
@@ -19,6 +18,10 @@ CACHE_DIRNAME = ".cache"
 VOICES_DIR = Path(__file__).resolve().parent / "voices"
 
 
+def list_voice_paths() -> list[Path]:
+    return sorted(v for v in VOICES_DIR.glob("*.wav") if not v.stem.endswith("_preview"))
+
+
 def resolve_voice(spec: str | None) -> Path | None:
     """Map a --voice value to a reference wav: a name in voices/ or a direct path.
     Returns None for the built-in default voice."""
@@ -30,7 +33,7 @@ def resolve_voice(spec: str | None) -> Path | None:
     path = Path(spec).expanduser()
     if path.is_file():
         return path
-    available = sorted(v.stem for v in VOICES_DIR.glob("*.wav") if not v.stem.endswith("_preview"))
+    available = [v.stem for v in list_voice_paths()]
     raise SystemExit(
         f"Unknown voice {spec!r}: not in {VOICES_DIR}/ and not an audio file path. "
         f"Available voices: {available or 'none (create one with prepare_voice.py)'}"
@@ -79,6 +82,7 @@ def get_or_synthesize_chunk(
         except Exception:
             pass  # fall through to re-synthesize
 
+    import torch  # deferred: keep --list and the GUI torch-free
     wav = synth_chunk(model, text, exaggeration=exaggeration, cfg_weight=cfg_weight)
     if torch.cuda.is_available():
         torch.cuda.empty_cache()  # avoid allocator fragmentation over many small calls

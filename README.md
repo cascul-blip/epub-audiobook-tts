@@ -10,6 +10,7 @@ python -m venv .
 - text_chunker.py — splits chapter text into sentence-aware chunks (≤300 chars) safe for Chatterbox's hard ~40s/generate-call limit.
 - tts_synth.py — loads the model once, synthesizes/caches each chunk as a wav, concatenates with paragraph-aware pauses, exports mp3.
 - epub_to_audiobook.py — the CLI.
+- epub_gui.py — Qt window over the CLI: set every flag, tick chapters, preview their opening paragraphs, run with a live log.
 - prepare_voice.py — turns a video/audio clip into a voices/<name>.wav reference for voice cloning.
 
 Usage:
@@ -18,6 +19,7 @@ Usage:
 ./bin/python epub_to_audiobook.py "book.epub" --chapters 2,4-6           # subset
 ./bin/python epub_to_audiobook.py "book.epub" --force                    # ignore cache/existing output
 ./bin/python epub_to_audiobook.py "book.epub" --voice NAME               # use a cloned voice
+./bin/python epub_gui.py ["book.epub"]                                  # the same, in a window
 
 Voice cloning:
 ./bin/python prepare_voice.py clip.mp4 NAME --start 1:23 --duration 20 --preview "Testing the cloned voice."
