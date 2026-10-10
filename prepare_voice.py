@@ -42,7 +42,7 @@ def extract_reference(input_path: Path, out_path: Path, start: str | None, durat
 
 
 def list_voices() -> None:
-    voices = sorted(v for v in tts_synth.VOICES_DIR.glob("*.wav") if not v.stem.endswith("_preview"))
+    voices = tts_synth.list_voice_paths()
     if not voices:
         print(f"No voices yet in {tts_synth.VOICES_DIR}/")
         return
