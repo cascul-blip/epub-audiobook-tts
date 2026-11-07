@@ -16,3 +16,6 @@ __pycache__/
 # Personal voice references and books
 voices/
 *.epub
+
+# Claude Code local settings
+.claude/settings.local.json
